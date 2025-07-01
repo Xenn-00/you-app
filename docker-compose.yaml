@@ -1,0 +1,29 @@
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongo_db
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - youapp-network
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbit_mq
+    restart: always
+    ports:
+      - "5672:5672" # AMQP protocol
+      - "15672:15672" # RabbitMQ dashboard
+    networks:
+      - youapp-network
+    environment:
+      RABBITMQ_DEFAULT_USER: youapp
+      RABBITMQ_DEFAULT_PASS: secret123
+
+networks:
+  youapp-network:
+
+volumes:
+  mongo_data:
