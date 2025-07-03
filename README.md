@@ -34,6 +34,8 @@ Tech stack:
    docker compose up --build
    ```
 
+NOTE: To run swagger make sure you're all set, then -> http://localhost:3000/api-docs
+
 ## ⚙️ API Endpoints
 
 - `POST /api/register`
