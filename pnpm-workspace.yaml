@@ -1,2 +1,7 @@
 ignoredBuiltDependencies:
   - argon2
+
+onlyBuiltDependencies:
+  - '@nestjs/core'
+  - '@scarf/scarf'
+  - '@swc/core'

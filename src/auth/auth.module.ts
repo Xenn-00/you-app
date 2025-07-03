@@ -6,10 +6,12 @@ import { AuthService } from "./auth.service";
 import { JwtModule, JwtModuleOptions } from "@nestjs/jwt";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { AccessJWTStrategy } from "./strategy/access.strategy";
+import { Profile, ProfileSchema } from "src/profile/profile.schema";
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+    MongooseModule.forFeature([{ name: Profile.name, schema: ProfileSchema }]),
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => {

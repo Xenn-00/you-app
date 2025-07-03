@@ -13,11 +13,13 @@ import { RegisterResponse } from "./dto/response/register.response";
 import { LoginDTO, LoginPayload } from "./dto/request/login.request";
 import { LoginResponse } from "./dto/response/login.response";
 import { JwtService } from "@nestjs/jwt";
+import { Profile } from "src/profile/profile.schema";
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectModel(User.name) private userModel: Model<User>,
+    @InjectModel(Profile.name) private profileModel: Model<Profile>,
     private jwtService: JwtService,
   ) {}
 
@@ -63,13 +65,23 @@ export class AuthService {
     });
     await user.save();
 
+    const profile = await this.profileModel.findOne({ userId: user._id });
+
     return {
       email: user.email,
       username: user.username,
       profile: {
-        bio: user.profile.bio,
-        interest: user.profile.interests,
-        profilePictureUrl: user.profile.profilePictureUrl,
+        about: {
+          displayName: profile?.displayName ?? "",
+          gender: profile?.gender ?? "",
+          birthday: profile?.birthDate ?? "",
+          horoscope: profile?.horoscope ?? "",
+          zodiac: profile?.zodiac ?? "",
+          height: profile?.height ?? 0,
+          weight: profile?.weight ?? 0,
+        },
+        interests: profile?.interests ?? [],
+        profilePictureUrl: profile?.profilePictureUrl ?? null,
       },
     };
   }
@@ -99,15 +111,25 @@ export class AuthService {
 
     const token = await this.jwtService.signAsync(payload);
 
+    const profile = await this.profileModel.findOne({ userId: user._id });
+
     return {
       accessToken: token,
       user: {
         email: user.email,
         username: user.username,
         profile: {
-          bio: user.profile?.bio ?? "",
-          interest: user.profile?.interests ?? [],
-          profilePictureUrl: user.profile?.profilePictureUrl ?? null,
+          about: {
+            displayName: profile?.displayName ?? "",
+            gender: profile?.gender ?? "",
+            birthday: profile?.birthDate ?? "",
+            horoscope: profile?.horoscope ?? "",
+            zodiac: profile?.zodiac ?? "",
+            height: profile?.height ?? 0,
+            weight: profile?.weight ?? 0,
+          },
+          interests: profile?.interests ?? [],
+          profilePictureUrl: profile?.profilePictureUrl ?? null,
         },
       },
     };

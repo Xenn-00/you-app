@@ -13,25 +13,22 @@ export class Profile extends Document {
   gender: string;
 
   @Prop({ required: true })
-  birthDate: Date;
+  birthDate: string;
 
   @Prop()
-  horoscope?: string;
+  horoscope: string;
 
   @Prop()
-  zodiac?: string;
+  zodiac: string;
 
   @Prop()
-  height?: number;
+  height: number;
 
   @Prop()
-  weight?: number;
+  weight: number;
 
   @Prop({ type: [String], default: [] })
   interests: string[];
-
-  @Prop()
-  bio?: string;
 
   @Prop()
   profilePictureUrl?: string;

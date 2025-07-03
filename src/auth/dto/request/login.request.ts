@@ -1,3 +1,5 @@
+import { ApiProperty } from "@nestjs/swagger";
+import { createZodDto } from "nestjs-zod";
 import { z } from "zod";
 
 export const LoginSchema = z
@@ -20,7 +22,16 @@ export const LoginSchema = z
   );
 // By looking at the design, it looks we can login either with email or username
 // So that, I use regex to validate the input, is it email or username
-export type LoginDTO = z.infer<typeof LoginSchema>;
+export class LoginDTO extends createZodDto(LoginSchema) {
+  @ApiProperty({
+    description: "you can give an input either username or email, e.g: bakugou",
+    default: "bakugou",
+  })
+  identifier: string;
+  @ApiProperty({ default: "katsuki123" })
+  password: string;
+}
+export type LoginDTOType = z.infer<typeof LoginSchema>;
 
 export class LoginPayload {
   sub: string;

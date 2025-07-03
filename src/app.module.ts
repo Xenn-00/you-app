@@ -9,15 +9,15 @@ import { ProfileModule } from "./profile/profile.module";
 import { ChatModule } from "./chat/chat.module";
 import { AuthModule } from "./auth/auth.module";
 import { ThrottlerModule } from "@nestjs/throttler";
+import { CommonModule } from "./common/common.module";
+import { RedisModule } from "./redis/redis.module";
 
 @Module({
   imports: [
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
-        uri:
-          configService.get<string>("MONGO_URI") ||
-          "mongodb://mongo:27017/youapp",
+        uri: configService.get<string>("MONGO_URI"),
       }),
       inject: [ConfigService],
     }),
@@ -36,6 +36,8 @@ import { ThrottlerModule } from "@nestjs/throttler";
     ChatModule,
     ChatListenerModule,
     ChatPublisherModule,
+    CommonModule,
+    RedisModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),

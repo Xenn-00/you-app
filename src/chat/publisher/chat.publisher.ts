@@ -1,20 +1,15 @@
-import { AmqpConnection } from "@golevelup/nestjs-rabbitmq";
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
+import { RabbitService } from "src/rabbitmq/rabbitmq.service";
 
 @Injectable()
 export class ChatPublisher {
-  constructor(private readonly amqpConnection: AmqpConnection) {}
-
+  constructor(private readonly rabbitService: RabbitService) {}
+  private readonly logger = new Logger();
   async sendMessage(message: any): Promise<void> {
-    try {
-      await this.amqpConnection.publish(
-        "message.exchange",
-        "message.received",
-        message,
-      );
-      console.log("Message sent successfully:", message);
-    } catch (error) {
-      console.error("Failed to send message:", error);
-    }
+    await this.rabbitService.publishMessage(
+      "message.exchange",
+      "message.received",
+      message,
+    );
   }
 }

@@ -9,20 +9,6 @@ export class User extends Document {
   username: string;
   @Prop({ required: true })
   password: string;
-
-  @Prop({
-    type: {
-      bio: { type: String, default: "" },
-      interests: { type: [String], default: [] },
-      profilePictureUrl: { type: String, default: null },
-    },
-    default: {},
-  })
-  profile: {
-    bio: string;
-    interests: string[];
-    profilePictureUrl: string | null;
-  };
   @Prop({ default: Date.now })
   createdAt: Date;
 }

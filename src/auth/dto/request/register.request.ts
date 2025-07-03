@@ -1,3 +1,5 @@
+import { ApiProperty } from "@nestjs/swagger";
+import { createZodDto } from "nestjs-zod";
 import { z } from "zod";
 
 export const RegisterSchema = z
@@ -16,4 +18,14 @@ export const RegisterSchema = z
     }
   });
 
-export type RegisterDTO = z.infer<typeof RegisterSchema>;
+export class RegisterDTO extends createZodDto(RegisterSchema) {
+  @ApiProperty({ default: "bakugou" })
+  username: string;
+  @ApiProperty({ default: "bakugou@ua.ac.jp" })
+  email: string;
+  @ApiProperty({ default: "katsuki123" })
+  password: string;
+  @ApiProperty({ default: "katsuki123" })
+  confirm_password: string;
+}
+export type RegisterDTOType = z.infer<typeof RegisterSchema>;
