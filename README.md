@@ -1,4 +1,11 @@
 # YouApp Backend (NestJS 🚀)
+![Node.js](https://img.shields.io/badge/Node.js-16.x-brightgreen)
+![NestJS](https://img.shields.io/badge/NestJS-DDD-red)
+![MongoDB](https://img.shields.io/badge/MongoDB-NoSQL-green)
+![Docker](https://img.shields.io/badge/Docker-Compose-blue)
+![RabbitMQ](https://img.shields.io/badge/Messaging-RabbitMQ-orange)
+![Redis](https://img.shields.io/badge/Cache-Redis-blueviolet)
+
 Tech stack:
 - NestJS
 - MongoDB
