@@ -9,6 +9,8 @@ Tech stack:
 - Unit tests (Jest)
 - Redis
 
+This project was originally built under a constrained timeline. If I were to rewrite this in Rust, I'd lean on axum, lapin, and bb8 to achieve better runtime perf, safety, and deployment size.
+
 ## 📦 Setup
 1. Clone & install
    
